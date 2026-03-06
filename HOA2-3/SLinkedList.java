@@ -71,11 +71,13 @@ public class SLinkedList {
         return sum;
     }
 
-    public void swapFirstSecond(){  //incomplete
-        Node temp = head.getNext();
-        Node tempHead = head;
-        (head.getNext()).setNext(head);
-        head.setNext(temp.getNext());
+    public void swapFirstSecond(){
+        Node temp1 = head;
+        Node temp2 = head.getNext();
+
+        temp1.setNext(temp2.getNext());
+        temp2.setNext(temp1);
+        head = temp2;
 
 
     }
@@ -95,7 +97,7 @@ public class SLinkedList {
         else {
             Node selection = sll1.head;
             Node comparison = sll2.head;
-            for (int i = 0; i<sll1.size+1; i++){
+            for (int i = 0; i<sll1.size; i++){
                 if(selection.getValue() == comparison.getValue() && selection.getNext() == comparison.getNext()){
                     selection = selection.getNext();
                     comparison = comparison.getNext();
@@ -110,23 +112,31 @@ public class SLinkedList {
     }
 
     public void moveContents(Queue<String> q){
+
+        /*
         Node selection = head;
         Node temp = selection;
-        for (int i = 0; i<size+1; i++){
+        for (int i = 0; i<size; i++){
             q.add((new Integer(selection.getValue())).toString()); //int :/
             selection = selection.getNext();
             removeNode(temp);
             temp = selection;
-
+        */
+        for (int i = 0; i<size; i++){
+            q.add((new Integer(head.getValue())).toString());
+            Node temp = head;
+            head = head.getNext();
+            temp.setNext(null);
         }
+        size = 0;
     }
 
     public void removeEverySecondNode(SLinkedList sl){
         Node selection = sl.head;
-        for (int i = 0; i<sl.size+1; i++){
+        for (int i = 0; i<sl.size; i++){
             if (i%2 == 1){
                 Node temp = selection.getNext();
-                removeNode(selection);
+                sl.removeNode(selection);
                 selection = temp;
             }
             else{
